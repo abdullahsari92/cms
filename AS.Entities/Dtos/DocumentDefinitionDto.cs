@@ -1,0 +1,18 @@
+﻿using AS.Entities.Base;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AS.Entities.Dtos
+{
+    public class DocumentDefinitionDto:Dto
+    {
+        public string Name { get; set; }
+        public int UploadStatus { get; set; }
+        public string RulesDescription { get; set; }
+
+      
+    }
+}
