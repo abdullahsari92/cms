@@ -15,6 +15,7 @@ namespace AS.Web.Api.Controllers
     {
         private IMenuService _menuService;
 
+        //menu çalışması
         public MenuController(IMenuService menuService)
         {
             _menuService = menuService;
