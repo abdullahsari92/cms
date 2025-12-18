@@ -3,6 +3,7 @@ using AS.Entities.Dtos;
 using AS.Entities.Entity;
 using AS.Entities.PublicUI.Dtos.Activity;
 using AS.Entities.PublicUI.Dtos.Announcement;
+using AS.Entities.PublicUI.Dtos.Menu;
 using AS.Entities.PublicUI.Dtos.News;
 using AS.Entities.PublicUI.Dtos.Slider;
 using AS.Entities.Simple;
@@ -281,6 +282,18 @@ namespace AS.Business.AutoMapperProfile
                 .ForMember(x => x.CreationTime, opt => opt.Ignore())
                 .ForMember(x => x.CreatedBy, opt => opt.Ignore())
             .ReverseMap();
+
+            // UI-Menu
+            CreateMap<Menu, MenuDtoUI>()
+                
+                .ForMember(dest => dest.Children, opt => opt.MapFrom(src => src.Children))
+                .ReverseMap();
+
+            CreateMap<MenuDtoUI, Menu>()
+                .ForMember(x => x.CreatedById, opt => opt.Ignore())
+                .ForMember(x => x.CreationTime, opt => opt.Ignore())
+                .ForMember(x => x.CreatedBy, opt => opt.Ignore())
+                .ReverseMap();
 
 
         }

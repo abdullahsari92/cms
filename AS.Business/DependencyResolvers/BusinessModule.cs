@@ -1,4 +1,5 @@
-﻿using AS.Business.EmailMessage;
+﻿using AS.Business;
+using AS.Business.EmailMessage;
 using AS.Business.Interfaces;
 using AS.Business.Interfaces.PublicUI;
 using AS.Business.PublicUIManager;
@@ -18,37 +19,40 @@ namespace AS.Business.DependencyResolvers
     {
         public void Load(IServiceCollection services)
         {
-
-            //Transient her defasında yeni bir instance(örnek) oluşturuyor.
+            // =========================
+            // CORE - PRIVATE SERVICES
+            // =========================
             services.AddTransient<IUserService, UserManager>();
             services.AddTransient<IPermissionService, PermissionManager>();
             services.AddTransient<IRoleService, RoleManager>();
             services.AddTransient<ILanguageDefinitionService, LanguageDefinitionManager>();
 
-            services.AddTransient<IMenuService, MenuManager>();
+            services.AddScoped<IMenuService, MenuManager>(); // 🔥 MENU (SCOPED)
+
             services.AddTransient<IAuthService, AuthManager>();
             services.AddTransient<IDepartmentService, DepartmentManager>();
             services.AddTransient<IFacultyService, FacultyManager>();
-
             services.AddTransient<IPersonService, PersonManager>();
-
-
             services.AddTransient<IKPSService, KPSService>();
 
-            services.AddTransient<IEMailSender, EMailSender>();
             services.AddTransient<ISettingService, SettingManager>();
             services.AddTransient<IAccountService, AccountManager>();
+            services.AddTransient<IEMailSender, EMailSender>();
 
             services.AddTransient<IDocumentService, DocumentManager>();
             services.AddTransient<IDashboardService, DashboardManager>();
 
-
+            // =========================
+            // CACHE & REDIS
+            // =========================
             services.AddSingleton<ICacheService, RedisCacheService>();
             services.AddSingleton<IRedisService, RedisService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            //CMS-private 
+            // =========================
+            // CMS - PRIVATE
+            // =========================
             services.AddTransient<IContentService, ContentManager>();
             services.AddTransient<INewsService, NewsManager>();
             services.AddTransient<IAnnouncementService, AnnouncementManager>();
@@ -60,19 +64,22 @@ namespace AS.Business.DependencyResolvers
             services.AddTransient<ISliderService, SliderManager>();
             services.AddTransient<ILogInfoService, LogInfoManager>();
 
-            //UI-public
+            // =========================
+            // PUBLIC UI SERVICES (MENU YOK)
+            // =========================
             services.AddTransient<IActivityUIService, ActivityUIManager>();
             services.AddTransient<IAnnouncementUIService, AnnouncementUIManager>();
             services.AddTransient<INewsUIService, NewsUIManager>();
             services.AddTransient<ISliderUIService, SliderUIManager>();
+            services.AddTransient<IMenuUIService, MenuUIManager>();
 
 
-            //FluentValidation
+            // =========================
+            // FLUENT VALIDATION
+            // =========================
             services.AddFluentValidation(fv =>
-                fv.RegisterValidatorsFromAssembly(AppDomain.CurrentDomain.GetAssemblies().First()));
+                fv.RegisterValidatorsFromAssembly(
+                    AppDomain.CurrentDomain.GetAssemblies().First()));
         }
-
-
     }
 }
-
