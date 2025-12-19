@@ -7,6 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="PublicUI\Dtos\NewFolder1\**" />
+    <Compile Remove="PublicUI\Dtos\NewFolder\**" />
+    <EmbeddedResource Remove="PublicUI\Dtos\NewFolder1\**" />
+    <EmbeddedResource Remove="PublicUI\Dtos\NewFolder\**" />
+    <None Remove="PublicUI\Dtos\NewFolder1\**" />
+    <None Remove="PublicUI\Dtos\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="PublicUI\Dtos\Pages.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.1" />
   </ItemGroup>
